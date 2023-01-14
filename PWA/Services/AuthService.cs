@@ -30,16 +30,9 @@ namespace PWA.Services
             return response;
         }
 
-        public async Task<CustomResponse<UserDto>> RegisterAsync(RegisterDto registerDto)
+        public async Task<CustomResponse<bool>> RegisterAsync(RegisterDto registerDto)
         {
-            CustomResponse<UserDto> response = await _httpService.PostAsync<UserDto>("auth/register", registerDto);
-            if (response.IsSuccessful)
-            {
-                await _localStorage.SetItemAsync<UserDto>("token", response.Data);
-                await _authStateProvider.GetAuthenticationStateAsync();
-            }
-
-            return response;
+            return await _httpService.PostAsync<bool>("auth/register", registerDto);
         }
 
         public async Task Logout()
@@ -52,7 +45,7 @@ namespace PWA.Services
     public interface IAuthService
     {
         Task<CustomResponse<UserDto>> LoginAsync(LoginDto loginDto);
-        Task<CustomResponse<UserDto>> RegisterAsync(RegisterDto registerDto);
+        Task<CustomResponse<bool>> RegisterAsync(RegisterDto registerDto);
         Task Logout();
     }
 }
