@@ -91,7 +91,6 @@ namespace PWA.Services
                 {
                     await _localStorage.RemoveItemAsync("token");
                     await _authStateProvider.GetAuthenticationStateAsync();
-                    return null;
                 }
 
                 customResponse.IsSuccessful = false;

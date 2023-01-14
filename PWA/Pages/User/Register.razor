@@ -1,5 +1,5 @@
 ﻿@page "/Register"
-@inject AuthService AuthService
+@inject IAuthService AuthService
 @inject NavigationManager Nav
 @inject ISnackbar SnackBar
 
@@ -71,10 +71,10 @@
     {
         isLoading = true;
 
-        CustomResponse<UserDto> response = await AuthService.RegisterAsync(model);
+        CustomResponse<bool> response = await AuthService.RegisterAsync(model);
         if (response.IsSuccessful)
         {
-            Nav.NavigateTo("", false);
+            Nav.NavigateTo("login", false);
         }
         else
         {
