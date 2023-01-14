@@ -5,7 +5,6 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-
     <MudAppBar Color="Color.Primary">
         <MudText>PWA</MudText>
         <MudSpacer></MudSpacer>
@@ -25,18 +24,18 @@
     string GetThemeIcon() => isDarkTheme ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.WbSunny;
 
     MudTheme Custom = new MudTheme()
+    {
+        Palette = new Palette()
         {
-            Palette = new Palette()
-            {
-                Primary = Colors.Cyan.Default,
-                Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.BlueGrey.Darken4,
-            },
-            PaletteDark = new PaletteDark()
-            {
-                Primary = Colors.Cyan.Default,
-                
-            }
-        };
+            Primary = Colors.Cyan.Default,
+            Secondary = Colors.Green.Accent4,
+            AppbarBackground = Colors.BlueGrey.Darken4,
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Cyan.Default,
+            
+        }
+    };
 }
 

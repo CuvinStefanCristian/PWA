@@ -1,8 +1,7 @@
-﻿@using System.ComponentModel.DataAnnotations
-@page "/Login"
-
+﻿@page "/Login"
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator/>
     <div class="d-flex justify-center">
          <MudImage Src="images\logo.png" ObjectFit="@ImageFit" Height="300" Width="300"/>
     </div>
@@ -10,8 +9,7 @@
     <MudGrid>
         <MudSpacer />
         <MudItem xs="12" sm="3">
-            <MudCard>
-
+            <MudCard Elevation="5">
                 <MudCardContent>
                     <MudText Typo="Typo.h5" Align="Align.Center">Login</MudText>
                     <MudTextField Label="Username"
@@ -23,9 +21,9 @@
                     <MudSpacer />
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ml-auto">Connect</MudButton>
                     <MudSpacer />
-            </MudCardActions>
+                </MudCardActions>
             </MudCard>
-    </MudItem>
+        </MudItem>
         <MudSpacer />
     </MudGrid>
 </EditForm>
@@ -44,21 +42,11 @@
 
 @code {
     LoginDto model = new();
-
-    bool Disabled { get; set; }
-
     DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
-
-    bool success;
-
     ObjectFit ImageFit = ObjectFit.ScaleDown;
 
-    private void OnValidSubmit(EditContext context)
+    async Task OnValidSubmit()
     {
-        success = true;
-        StateHasChanged();
+        
     }
-
 }
-
-
