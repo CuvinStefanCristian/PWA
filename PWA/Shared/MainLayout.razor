@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IAuthService AuthService
 
 <MudThemeProvider Theme="Custom" @bind-IsDarkMode="isDarkTheme"/>
 <MudDialogProvider/>
@@ -7,14 +8,23 @@
 <MudLayout>
     <MudAppBar Color="Color.Primary">
         <MudText>PWA</MudText>
-        <MudSpacer></MudSpacer>
 
-        <MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Dark" Size="Size.Medium"/>
-        <MudIconButton Icon="@Icons.Material.Filled.LocationOn" Color="Color.Dark" Size="Size.Medium" />
-        <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Dark" Size="Size.Medium" />
+        <AuthorizeView>
+            <Authorized>
+                <MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Dark" Size="Size.Medium" />
+                <MudIconButton Icon="@Icons.Material.Filled.LocationOn" Color="Color.Dark" Size="Size.Medium" />
+                <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Dark" Size="Size.Medium" />
 
+                <MudSpacer/>
 
-        <MudSwitch @bind-Checked="isDarkTheme" Color="Color.Dark" ThumbIcon="@GetThemeIcon()" />
+                <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Dark">
+                    <MudMenuItem>@context.User.Identity.Name</MudMenuItem>
+                    <MudMenuItem OnClick="@(async () => await AuthService.Logout())">Logout</MudMenuItem>
+                </MudMenu>
+
+                <MudSwitch @bind-Checked="isDarkTheme" Color="Color.Dark" ThumbIcon="@GetThemeIcon()" />
+            </Authorized>
+        </AuthorizeView>
     </MudAppBar>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-2 pt-2">

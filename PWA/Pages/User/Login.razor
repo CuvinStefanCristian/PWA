@@ -1,7 +1,6 @@
 ﻿@page "/Login"
-@inject AuthService AuthService
+@inject IAuthService AuthService
 @inject NavigationManager Nav
-@inject ISnackbar SnackBar
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator/>
@@ -15,8 +14,8 @@
             <MudCard Elevation="5">
                 <MudCardContent>
                     <MudText Typo="Typo.h5" Align="Align.Center">Login</MudText>
-                    <MudTextField Label="Email"
-                                  @bind-Value="model.Email" For="@(() => model.Email)" />
+                    <MudTextField Label="Username"
+                                  @bind-Value="model.UserName" For="@(() => model.UserName)"/>                 
                     <MudTextField Label="Password"  Class="mt-3"
                                   @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
                 </MudCardContent>
@@ -69,10 +68,6 @@
         if (response.IsSuccessful)
         {
             Nav.NavigateTo("", false);
-        }
-        else
-        {
-            SnackBar.Add(response.Message, Severity.Error);
         }
 
         isLoading = false;
