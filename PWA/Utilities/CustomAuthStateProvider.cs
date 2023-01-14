@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using PWA.Shared.DTOs;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
@@ -19,7 +20,8 @@ namespace PWA.Utilities
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            string token = await _localStorage.GetItemAsStringAsync("token");
+            var item = await _localStorage.GetItemAsync<UserDto>("token");
+            string token = item?.Token;
 
             var identity = new ClaimsIdentity();
             _httpClient.DefaultRequestHeaders.Authorization = null;
