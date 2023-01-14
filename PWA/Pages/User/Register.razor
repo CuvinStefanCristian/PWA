@@ -1,7 +1,6 @@
 ﻿@page "/Register"
 @inject IAuthService AuthService
 @inject NavigationManager Nav
-@inject ISnackbar SnackBar
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator/>
@@ -75,10 +74,6 @@
         if (response.IsSuccessful)
         {
             Nav.NavigateTo("login", false);
-        }
-        else
-        {
-            SnackBar.Add(response.Message, Severity.Error);
         }
 
         isLoading = false;

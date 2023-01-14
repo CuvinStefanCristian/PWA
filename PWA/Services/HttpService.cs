@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using MudBlazor;
 using Microsoft.AspNetCore.Components.Authorization;
 using Newtonsoft.Json;
 using PWA.Utilities;
@@ -12,11 +13,13 @@ namespace PWA.Services
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authStateProvider;
         private readonly ILocalStorageService _localStorage;
+        private readonly ISnackbar _snackBar;
 
-        public HttpService(HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, ILocalStorageService localStorageService)
+        public HttpService(HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, ISnackbar snackbar, ILocalStorageService localStorageService)
         {
             _httpClient = httpClient;
             _authStateProvider = authenticationStateProvider;
+            _snackBar = snackbar;
             _localStorage = localStorageService;
         }
 
@@ -75,8 +78,28 @@ namespace PWA.Services
         public async Task<CustomResponse<T>> SendAsync<T>(HttpRequestMessage message)
         {
             CustomResponse<T> customResponse = new();
+            HttpResponseMessage response;
 
-            var response = await _httpClient.SendAsync(message);
+            try
+            {
+                response = await _httpClient.SendAsync(message);
+            }
+            catch(Exception ex)
+            {
+                if (ex.Message.Contains("Failed to fetch"))
+                { 
+                    customResponse.Code = HttpStatusCode.ServiceUnavailable;
+                    _snackBar.Add("Serverul nu poate fi accesat!", Severity.Error);
+                }
+                else
+                {
+                    _snackBar.Add($"{ex.Message}", Severity.Error);
+                    customResponse.Code = HttpStatusCode.InternalServerError;
+                    customResponse.Message = ex.Message;
+                }
+                return customResponse;
+            }
+
             customResponse.Code = response.StatusCode;
 
             if (response.IsSuccessStatusCode)
