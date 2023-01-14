@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="Custom" @bind-IsDarkMode="isDarkTheme"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+
+    <MudAppBar Color="Color.Primary">
+        <MudText>PWA</MudText>
+        <MudSpacer></MudSpacer>
+        <MudSwitch @bind-Checked="isDarkTheme" Color="Color.Dark" ThumbIcon="@GetThemeIcon()" />
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-2 pt-2">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+
+@code{
+    bool isDarkTheme = false;
+
+    string GetThemeIcon() => isDarkTheme ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.WbSunny;
+
+    MudTheme Custom = new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = Colors.Cyan.Default,
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = Colors.BlueGrey.Darken4,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Cyan.Default,
+                
+            }
+        };
+}
+

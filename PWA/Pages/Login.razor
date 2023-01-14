@@ -1,0 +1,64 @@
+﻿@using System.ComponentModel.DataAnnotations
+@page "/Login"
+
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <div class="d-flex justify-center">
+         <MudImage Src="images\logo.png" ObjectFit="@ImageFit" Height="300" Width="300"/>
+    </div>
+
+    <MudGrid>
+        <MudSpacer />
+        <MudItem xs="12" sm="3">
+            <MudCard>
+
+                <MudCardContent>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Login</MudText>
+                    <MudTextField Label="Username"
+                                  @bind-Value="model.UserName" For="@(() => model.UserName)"/>                 
+                    <MudTextField Label="Password"  Class="mt-3"
+                                  @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudSpacer />
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ml-auto">Connect</MudButton>
+                    <MudSpacer />
+            </MudCardActions>
+            </MudCard>
+    </MudItem>
+        <MudSpacer />
+    </MudGrid>
+</EditForm>
+
+<MudStack Row Class="my-4">
+    <MudSpacer />
+    <MudIcon Icon="@Icons.Material.Filled.HorizontalRule" Color="Color.Primary" Size="Size.Large"/>
+    <MudText Typo="Typo.subtitle1" Class="my-1">OR</MudText>
+    <MudIcon Icon="@Icons.Material.Filled.HorizontalRule" Color="Color.Primary" Size="Size.Large" />
+    <MudSpacer />
+</MudStack>
+
+
+<MudText Align="Align.Center">Don't have an account?<MudLink Href="/Register">Signup</MudLink></MudText>
+
+
+@code {
+    LoginDto model = new();
+
+    bool Disabled { get; set; }
+
+    DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
+
+    bool success;
+
+    ObjectFit ImageFit = ObjectFit.ScaleDown;
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+}
+
+
