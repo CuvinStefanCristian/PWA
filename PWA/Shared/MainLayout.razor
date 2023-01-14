@@ -8,6 +8,12 @@
     <MudAppBar Color="Color.Primary">
         <MudText>PWA</MudText>
         <MudSpacer></MudSpacer>
+
+        <MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Dark" Size="Size.Medium"/>
+        <MudIconButton Icon="@Icons.Material.Filled.LocationOn" Color="Color.Dark" Size="Size.Medium" />
+        <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Dark" Size="Size.Medium" />
+
+
         <MudSwitch @bind-Checked="isDarkTheme" Color="Color.Dark" ThumbIcon="@GetThemeIcon()" />
     </MudAppBar>
     <MudMainContent>
