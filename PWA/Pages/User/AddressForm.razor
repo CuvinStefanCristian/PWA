@@ -1,0 +1,49 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+@page "/AddressForm"
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Strada"
+                                  @bind-Value="model.Strada" For="@(() => model.Strada)" />
+                    <MudTextField Label="Numar"
+                                  @bind-Value="model.Numar" For="@(() => model.Numar)" />
+
+                    <MudTextField Label="Bloc" HelperText="(Optional)"
+                                  @bind-Value="model.Bloc" For="@(() => model.Bloc)" />
+                    <MudTextField Label="Scara" HelperText="(Optional)"
+                                  @bind-Value="model.Scara" For="@(() => model.Scara)" />
+                    
+                    <MudTextField Label="Judet" Class="mt-3"
+                                  @bind-Value="model.Judet" For="@(() => model.Judet)" />
+                    <MudTextField Label="Oras" Class="mt-3"
+                                  @bind-Value="model.Oras" For="@(() => model.Oras)" InputType="InputType.Password" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d22793.56494922633!2d26.11832405827637!3d44.42914940000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1673725217667!5m2!1sro!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"</iframe>            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+	CladireDto model = new();
+	DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
+
+    bool success;
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+}
