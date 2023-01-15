@@ -10,15 +10,25 @@ namespace PWA.Shared.DTOs
 	public sealed class CladireDto
 	{
 		[Required]
-		public string Strada { get; set; }
+		public string Tip_Strada { get; set; }
         [Required]
-        public string Numar { get; set; }
+		public string Denumire_Strada { get; set; }
+		[Required]
+		public string Numar { get; set; }
 
+        [Required]
         public string Bloc { get; set; }
+        [Required]
         public string Scara { get; set; }
         [Required]
-		public string Oras { get; set; }
-		[Required]
-		public string Judet { get; set; }
-	}
+        public string Stadiul_Blocului { get; set; }
+        [Required]
+        public string Anul_Construirii { get; set; }
+        [Required]
+        public string Regim_Inaltime { get; set; }
+        [Required]
+        public string Sistemul_constructiv { get; set; }
+        [Required]
+        public int Numar_apartamente { get; set; }
+    }
 }
