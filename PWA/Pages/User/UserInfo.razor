@@ -1,0 +1,33 @@
+﻿@page "/UserInfo"
+
+<MudText Style="font-size:x-large; font-weight:700; font-family:'Segoe UI';" Color="Color.Primary" Align="Align.Center">User information</MudText>
+
+<AuthorizeView>
+    <Authorized>
+        <MudStack Class="my-8 d-flex justify-center align-center">
+            <MudCard Style="align-items:center" Elevation="5">
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudIcon Icon="@Icons.Material.Filled.PersonPin" Size="Size.Large"/>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudMenuItem>@context.User.Identity.Name</MudMenuItem>
+                    </CardHeaderContent>
+                </MudCardHeader>
+            </MudCard>
+        </MudStack>
+    </Authorized>
+</AuthorizeView>
+<MudStack Row>
+    <MudSpacer/>
+    <MudFab Class="my-8 rounded-pill" Color="Color.Primary" Label="Change password"></MudFab>
+    <MudSpacer/>
+</MudStack>
+<MudStack Row>
+    <MudSpacer />
+    <MudFab Class="rounded-pill" Color="Color.Primary" Label="Logout"></MudFab>
+    <MudSpacer />
+</MudStack>
+@code {
+
+}
