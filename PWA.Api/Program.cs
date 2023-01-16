@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PWA.Api.Data;
 using PWA.Api.Data.Models;
+using PWA.Api.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,7 @@ builder.Services.AddAuthentication(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddScoped<CladiriService>();
 
 var app = builder.Build();
 

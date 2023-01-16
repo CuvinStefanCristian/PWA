@@ -9,6 +9,7 @@ namespace PWA.Shared.DTOs
 {
 	public sealed class CladireDto
 	{
+        public int Id { get; set; }
 		[Required]
 		public string Tip_Strada { get; set; }
         [Required]
@@ -16,19 +17,20 @@ namespace PWA.Shared.DTOs
 		[Required]
 		public string Numar { get; set; }
 
-        [Required]
+        
         public string Bloc { get; set; }
-        [Required]
+        
         public string Scara { get; set; }
         [Required]
         public string Stadiul_Blocului { get; set; }
         [Required]
         public string Anul_Construirii { get; set; }
-        [Required]
         public string Regim_Inaltime { get; set; }
-        [Required]
         public string Sistemul_constructiv { get; set; }
         [Required]
         public int Numar_apartamente { get; set; }
+
+        public float Longitudine { get; set; }
+        public float Latitudine { get; set; }
     }
 }

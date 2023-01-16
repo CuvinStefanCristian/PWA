@@ -2,14 +2,24 @@
 
 @page "/AddressForm"
 
+<MudText Style="font-size:x-large; font-weight:700; font-family:sans-serif;" Color="Color.Primary" Align="Align.Center">Adaugare adresa</MudText>
+
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <MudGrid>
         <MudItem xs="12" sm="7">
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="Tip strada"
-                                  @bind-Value="model.Tip_Strada" For="@(() => model.Tip_Strada)" />
+                    <MudSelect T="string" Label="Tip strada" AnchorOrigin="Origin.BottomCenter" Class="mt-3"
+                               @bind-Value="model.Tip_Strada" For="@(() => model.Tip_Strada)">
+                        <MudSelectItem Value="@("Strada")" />
+                        <MudSelectItem Value="@("Bulevardul")" />
+                        <MudSelectItem Value="@("Calea")" />
+                        <MudSelectItem Value="@("Soseaua")" />
+                        <MudSelectItem Value="@("Aleea")" />
+                        <MudSelectItem Value="@("Intrarea")" />
+                    </MudSelect>
+
                     <MudTextField Label="Denumire strada"
                                   @bind-Value="model.Denumire_Strada" For="@(() => model.Denumire_Strada)" />
                     <MudTextField Label="Numarul"
@@ -20,14 +30,18 @@
                     <MudTextField Label="Scara" Class="mt-3" HelperText="(Optional)"
                                   @bind-Value="model.Scara" For="@(() => model.Scara)" />
 
-                    <MudTextField Label="Stadiul blocului" Class="mt-3"
-                                  @bind-Value="model.Stadiul_Blocului" For="@(() => model.Stadiul_Blocului)" />
+                    <MudSelect T="string" Label="Stadiul blocului" AnchorOrigin="Origin.BottomCenter" Class="mt-3"
+                               @bind-Value="model.Stadiul_Blocului" For="@(() => model.Stadiul_Blocului)">
+                        <MudSelectItem Value="@("FINALIZAT")" />
+                        <MudSelectItem Value="@("IN EXECUTIE")" />
+                    </MudSelect>
+
                     <MudTextField Label="Anul constructiei" Class="mt-3"
                                   @bind-Value="model.Anul_Construirii" For="@(() => model.Anul_Construirii)" />
 
                     <MudTextField Label="Regim de inaltime (S+P+M)" HelperText="(Optional)" Class="mt-3"
                                   @bind-Value="model.Regim_Inaltime" For="@(() => model.Regim_Inaltime)" />
-                    <MudTextField Label="Sistemul constructiv" HelperText="(Optional) Class="mt-3"
+                    <MudTextField Label="Sistemul constructiv" HelperText="(Optional)" Class="mt-3"
                                   @bind-Value="model.Sistemul_constructiv" For="@(() => model.Sistemul_constructiv)" />
                     <MudTextField Label="Numar apartamente" Class="mt-3"
                                   @bind-Value="model.Numar_apartamente" For="@(() => model.Numar_apartamente)" />
@@ -35,13 +49,14 @@
 
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto rounded-pill">Register</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
         <MudItem xs="12" sm="5">
             <MudPaper Class="pa-4 mud-height-full">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d22793.56494922633!2d26.11832405827637!3d44.42914940000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sro!2sro!4v1673725217667!5m2!1sro!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"</iframe>            </MudPaper>
+                <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=25.50407409667969%2C44.207311626616956%2C26.650772094726566%2C44.65155875202518&amp;layer=mapnik&amp;marker=44.429857265397246%2C26.077423095703125"></iframe>
+            </MudPaper>
         </MudItem>
     </MudGrid>
 </EditForm>
@@ -51,10 +66,19 @@
 	DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
 
     bool success;
+    bool isLoading;
 
-    private void OnValidSubmit(EditContext context)
+    async Task OnValidSubmit()
     {
-        success = true;
-        StateHasChanged();
+        isLoading = true;
+
+        //CustomResponse<UserDto> response = await AuthService.LoginAsync(model);
+        //if (response.IsSuccessful)
+        //{
+
+        //}
+
+        isLoading = false;
     }
+
 }
