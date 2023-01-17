@@ -1,6 +1,6 @@
-﻿@using System.ComponentModel.DataAnnotations
-
-@page "/AddressForm"
+﻿@page "/AddressForm"
+@inject CladiriService CladiriService
+@inject ISnackbar Snackbar
 
 <MudText Style="font-size:x-large; font-weight:700; font-family:sans-serif;" Color="Color.Primary" Align="Align.Center">Adaugare adresa</MudText>
 
@@ -62,8 +62,8 @@
 </EditForm>
 
 @code {
-	CladireDto model = new();
-	DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
+    CladireDto model = new();
+    DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
 
     bool success;
     bool isLoading;
@@ -72,11 +72,12 @@
     {
         isLoading = true;
 
-        //CustomResponse<UserDto> response = await AuthService.LoginAsync(model);
-        //if (response.IsSuccessful)
-        //{
-
-        //}
+        CustomResponse<CladireDto> response = await CladiriService.InsertCladireAsync(model);
+        if (response.IsSuccessful)
+        {
+            Snackbar.Add("Cladire adaugata cu succes", Severity.Success);
+        }
+        else Snackbar.Add(response.Message, Severity.Error);
 
         isLoading = false;
     }

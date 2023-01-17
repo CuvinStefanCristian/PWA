@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PWA.Api.Data.Models;
 using PWA.Api.Services;
@@ -10,11 +11,13 @@ namespace PWA.Api.Controllers
     [ApiController]
     public class CladiriController: ControllerBase
     {
-        private readonly CladiriService _cladiriService;
+        private readonly CladiriRepo _cladiriService;
+        private readonly IConfiguration _config;
 
-        public CladiriController(CladiriService cladiriService)
+        public CladiriController(CladiriRepo cladiriService, IConfiguration config)
         {
             _cladiriService = cladiriService;
+            _config = config;
         }
 
         [HttpPost("insert")]
@@ -34,18 +37,18 @@ namespace PWA.Api.Controllers
                 cladire.Regim_Inaltime=cladire.Regim_Inaltime;
                 cladire.Sistemul_constructiv = cladireDto.Sistemul_constructiv;
                 cladire.Numar_apartamente = cladireDto.Numar_apartamente;
-                cladire.Longitudine=cladireDto.Longitudine;
-                cladire.Latitudine= cladireDto.Latitudine;
+                cladire.Longitudine = cladireDto.Longitudine;
+                cladire.Latitudine = cladireDto.Latitudine;
 
                 await _cladiriService.AddCladireAsync(cladire);
 
-                cladireDto.Id=cladire.Id;
+                cladireDto.Id = cladire.Id;
                 return Ok(cladireDto);
             }
             catch(Exception ex) 
             {
                 return BadRequest(ex.Message);
             }
-        }  
+        }
     }
 }

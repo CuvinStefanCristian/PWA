@@ -37,7 +37,7 @@ builder.Services.AddAuthentication(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddScoped<CladiriService>();
+builder.Services.AddScoped<CladiriRepo>();
 
 var app = builder.Build();
 

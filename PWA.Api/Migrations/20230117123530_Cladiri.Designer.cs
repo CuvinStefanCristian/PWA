@@ -11,7 +11,7 @@ using PWA.Api.Data;
 namespace PWA.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230116141204_Cladiri")]
+    [Migration("20230117123530_Cladiri")]
     partial class Cladiri
     {
         /// <inheritdoc />
@@ -48,13 +48,13 @@ namespace PWA.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4f2f03f8-9e36-4fa4-b597-51dc06a2a030",
+                            Id = "b9959fef-efa7-4db2-a5ec-12932f0c1a17",
                             Name = "Admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "8b089f08-234b-4e6e-9efd-4a2af020eb5f",
+                            Id = "15c0a657-92cf-46b0-add0-bff24ac468a0",
                             Name = "User",
                             NormalizedName = "user"
                         });
@@ -145,8 +145,8 @@ namespace PWA.Api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "0e159895-7d9a-47d3-9789-e592f25a2486",
-                            RoleId = "4f2f03f8-9e36-4fa4-b597-51dc06a2a030"
+                            UserId = "2969d004-a65d-4d2b-bd6a-92fb77ed62da",
+                            RoleId = "b9959fef-efa7-4db2-a5ec-12932f0c1a17"
                         });
                 });
 
@@ -243,9 +243,9 @@ namespace PWA.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0e159895-7d9a-47d3-9789-e592f25a2486",
+                            Id = "2969d004-a65d-4d2b-bd6a-92fb77ed62da",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eff34e7c-9187-472b-a8ad-68d1a9351086",
+                            ConcurrencyStamp = "3dd99539-70ab-4c37-9ed2-73cb002b0006",
                             Email = "admin@adminEmail.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -253,7 +253,7 @@ namespace PWA.Api.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMINEMAIL.COM",
                             NormalizedUserName = "ADMIN@ADMINEMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFdVxQyNjfcTWjFwTA79sLk2EtfJg48m+P4qcqFAUn+A/aoieO9tixTXL9vcM4yAWg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN4SLeD4ONQIccv/GO5O+p0qgQCA1ST2HtKre7mq6MjUp1oHVRShRXmu4OVOkMAzDA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
