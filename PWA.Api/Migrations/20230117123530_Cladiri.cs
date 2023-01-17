@@ -61,19 +61,19 @@ namespace PWA.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4f2f03f8-9e36-4fa4-b597-51dc06a2a030", null, "Admin", "admin" },
-                    { "8b089f08-234b-4e6e-9efd-4a2af020eb5f", null, "User", "user" }
+                    { "15c0a657-92cf-46b0-add0-bff24ac468a0", null, "User", "user" },
+                    { "b9959fef-efa7-4db2-a5ec-12932f0c1a17", null, "Admin", "admin" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "0e159895-7d9a-47d3-9789-e592f25a2486", 0, "eff34e7c-9187-472b-a8ad-68d1a9351086", "admin@adminEmail.com", true, "Admin", "Admin", false, null, "ADMIN@ADMINEMAIL.COM", "ADMIN@ADMINEMAIL.COM", "AQAAAAIAAYagAAAAEFdVxQyNjfcTWjFwTA79sLk2EtfJg48m+P4qcqFAUn+A/aoieO9tixTXL9vcM4yAWg==", null, false, "", false, "admin@adminEmail.com" });
+                values: new object[] { "2969d004-a65d-4d2b-bd6a-92fb77ed62da", 0, "3dd99539-70ab-4c37-9ed2-73cb002b0006", "admin@adminEmail.com", true, "Admin", "Admin", false, null, "ADMIN@ADMINEMAIL.COM", "ADMIN@ADMINEMAIL.COM", "AQAAAAIAAYagAAAAEN4SLeD4ONQIccv/GO5O+p0qgQCA1ST2HtKre7mq6MjUp1oHVRShRXmu4OVOkMAzDA==", null, false, "", false, "admin@adminEmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "4f2f03f8-9e36-4fa4-b597-51dc06a2a030", "0e159895-7d9a-47d3-9789-e592f25a2486" });
+                values: new object[] { "b9959fef-efa7-4db2-a5ec-12932f0c1a17", "2969d004-a65d-4d2b-bd6a-92fb77ed62da" });
         }
 
         /// <inheritdoc />
@@ -85,22 +85,22 @@ namespace PWA.Api.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "8b089f08-234b-4e6e-9efd-4a2af020eb5f");
+                keyValue: "15c0a657-92cf-46b0-add0-bff24ac468a0");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUserRoles",
                 keyColumns: new[] { "RoleId", "UserId" },
-                keyValues: new object[] { "4f2f03f8-9e36-4fa4-b597-51dc06a2a030", "0e159895-7d9a-47d3-9789-e592f25a2486" });
+                keyValues: new object[] { "b9959fef-efa7-4db2-a5ec-12932f0c1a17", "2969d004-a65d-4d2b-bd6a-92fb77ed62da" });
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "4f2f03f8-9e36-4fa4-b597-51dc06a2a030");
+                keyValue: "b9959fef-efa7-4db2-a5ec-12932f0c1a17");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "0e159895-7d9a-47d3-9789-e592f25a2486");
+                keyValue: "2969d004-a65d-4d2b-bd6a-92fb77ed62da");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",

@@ -35,6 +35,7 @@ namespace PWA.Services
             return await _httpService.PostAsync<bool>("auth/register", registerDto);
         }
 
+
         public async Task Logout()
         {
             await _localStorage.RemoveItemAsync("token");

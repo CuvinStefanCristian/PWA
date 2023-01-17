@@ -1,6 +1,7 @@
 ﻿@page "/Login"
 @inject IAuthService AuthService
 @inject NavigationManager Nav
+@inject ISnackbar snackBar
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator/>
@@ -69,6 +70,9 @@
         {
             Nav.NavigateTo("", false);
         }
+        else
+            snackBar.Add(response.Message, Severity.Error);
+
 
         isLoading = false;
     }

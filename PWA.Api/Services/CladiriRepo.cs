@@ -5,10 +5,10 @@ using PWA.Api.Migrations;
 
 namespace PWA.Api.Services
 {
-    public sealed class CladiriService
+    public sealed class CladiriRepo
     {
         private readonly AppDbContext _context;
-        public CladiriService(AppDbContext context)
+        public CladiriRepo(AppDbContext context)
         {
             _context = context;
         }
