@@ -50,5 +50,13 @@ namespace PWA.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("get")]
+        [Authorize]
+        public async Task<ActionResult<List<Cladire>>> GetCladiri()
+        {
+            List<Cladire> cladire = await _cladiriService.GetAll();
+            return Ok(cladire);
+        }
     }
 }
