@@ -2,6 +2,7 @@
 using PWA.Api.Data;
 using PWA.Api.Data.Models;
 using PWA.Api.Migrations;
+using PWA.Shared.DTOs;
 
 namespace PWA.Api.Services
 {
@@ -33,6 +34,12 @@ namespace PWA.Api.Services
             var cladire = await GetCladireAsync(id);
             _context.Cladiri.Remove(cladire);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Cladire>> GetAll()
+        {
+            List<Cladire> cladiri =  await _context.Cladiri.ToListAsync();
+            return cladiri;
         }
 
     }

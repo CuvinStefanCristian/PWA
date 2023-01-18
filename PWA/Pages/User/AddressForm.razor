@@ -73,13 +73,15 @@
         isLoading = true;
 
         CustomResponse<CladireDto> response = await CladiriService.InsertCladireAsync(model);
+        
         if (response.IsSuccessful)
         {
-            Snackbar.Add("Cladire adaugata cu succes", Severity.Success);
+            Snackbar.Add("Cladire adaugata cu succes", Severity.Success);           
         }
         else Snackbar.Add(response.Message, Severity.Error);
 
         isLoading = false;
+        
     }
 
 }

@@ -50,5 +50,33 @@ namespace PWA.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("get")]
+        [Authorize]
+        public async Task<ActionResult<List<CladireDto>>> GetCladiri()
+        {
+            List<Cladire> cladire = await _cladiriService.GetAll();
+            List<CladireDto> cladireDto = new(cladire.Count);
+            foreach(Cladire cladire1 in cladire)
+            {
+                cladireDto.Add(new()
+                {
+                    Id = cladire1.Id,
+                    Tip_Strada = cladire1.Tip_Strada,
+                    Denumire_Strada = cladire1.Denumire_Strada,
+                    Numar = cladire1.Numar,
+                    Bloc = cladire1.Bloc,
+                    Scara = cladire1.Scara,
+                    Stadiul_Blocului = cladire1.Stadiul_Blocului,
+                    Anul_Construirii = cladire1.Anul_Construirii,
+                    Regim_Inaltime = cladire1.Regim_Inaltime,
+                    Sistemul_constructiv = cladire1.Sistemul_constructiv,
+                    Numar_apartamente = cladire1.Numar_apartamente,
+                    Longitudine = cladire1.Longitudine,
+                    Latitudine = cladire1.Latitudine
+                });            
+            }
+            return Ok(cladireDto);
+        }
     }
 }
