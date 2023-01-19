@@ -69,10 +69,7 @@
 
     protected override void OnAfterRender(bool firstrender)
     {
-        if (firstrender)
-        {
-            JSRuntime.InvokeAsync<bool>("initMap", DotNetObjectReference.Create(this));
-        }
+        JSRuntime.InvokeAsync<bool>("initMap", DotNetObjectReference.Create(this));
     }
 
     [JSInvokable]
