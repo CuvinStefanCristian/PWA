@@ -88,6 +88,10 @@
         model.Tip_Strada = tipStrada;
         model.Denumire_Strada = strada;
         model.Numar = numar;
+
+        model.Longitudine = (float) addressObj["geometry"]["lng"];
+        model.Latitudine = (float) addressObj["geometry"]["lat"];
+
         StateHasChanged();
     }
 }
