@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Microsoft.AspNetCore.Components.Authorization;
+using PWA.Shared.DTOs;
+using PWA.Utilities;
+using PWA.Services;
 
 namespace PWA.Components
 {
@@ -21,6 +24,8 @@ namespace PWA.Components
 
         [Inject]
         AuthenticationStateProvider GetAuthStateProvider { get; set; }
+        [Inject]
+        IHttpService HttpService { get; set; }
 
         MudMessageBox? msgBoxCapacityError, msgBoxDuplicateWarning;
         List<CustomBrowserFile> Files = new();
@@ -28,6 +33,9 @@ namespace PWA.Components
         string path, username;
         int mainProgress = 0, filesUploaded = 0, fileCount;
         bool isLoading;
+
+        Stream _fileStream = null;
+        string _selectedFileName = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -46,6 +54,20 @@ namespace PWA.Components
 
                 foreach (var file in browserFiles)
                 {
+                    // Check if the file is null then return from the method
+                    if (file == null)
+                        return;
+
+                    // Validate the extension if requried (Client-Side)
+
+                    // Set the value of the stream by calling OpenReadStream and pass the maximum number of bytes allowed because by default it only allows 512KB
+                    // I used the value 5000000 which is about 50MB
+                    using (var stream = file.OpenReadStream(50000000))
+                    {
+                        _fileStream = stream;
+                        _selectedFileName = file.Name;
+                    }
+
                     var customBrowserFile = new CustomBrowserFile() { File = file };
 
                     if (file.Size > MaxSize)
@@ -87,8 +109,22 @@ namespace PWA.Components
 
             try
             {
-                await using FileStream fs = new(Path.Combine(path, file.File.Name), FileMode.Create);
-                await file.File.OpenReadStream(MaxSize).CopyToAsync(fs);
+                var content = new MultipartFormDataContent();
+
+                // Create an instance of ProgressiveStreamContent that we just created and we will pass the stream of the file for it
+                // and the 40096 which are 40KB per packet and the third argument which as a callback for the OnProgress event (u, p) are u = Uploaded bytes and P is the percentage
+                var streamContent = new ProgressiveStreamContent(_fileStream, 40096, (u, p) =>
+                {
+                    // Call StateHasChanged() to notify the component about this change to re-render the UI
+                    StateHasChanged();
+                });
+
+                // Add the streamContent with the name to the FormContent variable
+                content.Add(streamContent, "File");
+
+                // Submit the request
+                var response = await HttpService.PostAsync<ImagineDto>("fileUpload", streamContent);
+                var test = response.Message;
 
                 file.Status = FileStatus.Uploaded;
                 file.Message = "File uploaded";
