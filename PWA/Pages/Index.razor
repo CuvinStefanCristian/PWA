@@ -1,13 +1,14 @@
 ﻿@page "/"
 @attribute [Authorize]
 @inject CladiriService service
+@inject ISnackbar Snackbar
  
 <PageTitle>Index</PageTitle>
 
-<MudTable Items="cladiri" Hover="true" LoadingProgressColor="Color.Info" HorizontalScrollbar=true FixedHeader=true>
+<MudTable Items="@cladiri" Hover="true" LoadingProgressColor="Color.Info" HorizontalScrollbar=true FixedHeader=true>
     <ToolBarContent>
         <MudSpacer/><MudSpacer/>
-        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
         <MudTh><MudTableSortLabel SortBy="new Func<CladireDto, object>(x=>x.Tip_Strada)">Adresa</MudTableSortLabel></MudTh>
@@ -21,7 +22,7 @@
             <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
         </MudTd>
         <MudTd DataLabel="Imagini">
-            <MudIconButton Icon="@Icons.Material.Filled.Image" Color="Color.Primary"></MudIconButton>
+           <MudIconButton OnClick="@ShowFileUploadComponent" Icon="@Icons.Material.Filled.Image" Color="Color.Primary"></MudIconButton>
         </MudTd>
         <MudTd DataLabel="Editare">
             <MudIconButton Icon="@Icons.Material.Filled.EditNote" Color="Color.Primary"></MudIconButton>
@@ -30,8 +31,10 @@
     </RowTemplate>
 </MudTable>
 
+
 @code {
-    private string searchString;
+
+    private string searchString1;
     List<CladireDto> cladiri;
 
     protected override async Task OnInitializedAsync()
@@ -40,6 +43,8 @@
         if (response.IsSuccessful)
             cladiri = response.Data;
     }
+
+    private bool FilterFunc1(CladireDto element) => FilterFunc(element, searchString1);
 
     private bool FilterFunc(CladireDto element, string searchString)
     {
@@ -57,5 +62,4 @@
             return true;
         return false;
     }
-
 }

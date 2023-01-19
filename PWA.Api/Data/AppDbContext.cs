@@ -11,6 +11,8 @@ namespace PWA.Api.Data
 
         public DbSet<Cladire> Cladiri { get; set; }
 
+        public DbSet<Imagine> Imagini { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
