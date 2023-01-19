@@ -26,6 +26,8 @@ namespace PWA.Api.Controllers
             _config = config;
         }
 
+        private Task<AppUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -102,6 +104,46 @@ namespace PWA.Api.Controllers
             await _userManager.AddToRoleAsync(user, "User");
 
             return Ok(true);
+        }
+
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+        {
+
+            List<string> passwordErrors = new List<string>();
+
+            var validators = _userManager.PasswordValidators;
+
+            foreach (var validator in validators)
+            {
+                var validateResult = await validator.ValidateAsync(_userManager, null, changePasswordDto.NewPassword);
+
+                if (!validateResult.Succeeded)
+                {
+                    foreach (var error in validateResult.Errors)
+                    {
+                        passwordErrors.Add(error.Description);
+                    }
+                }
+            }
+            if (passwordErrors.Count > 0)
+                return Conflict("New Password is not Valid");
+
+
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.OldPassword, changePasswordDto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok(true);
+            }
+            else { return Conflict("Old Password Mismatch"); }
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

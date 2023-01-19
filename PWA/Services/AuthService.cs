@@ -35,18 +35,25 @@ namespace PWA.Services
             return await _httpService.PostAsync<bool>("auth/register", registerDto);
         }
 
+        public async Task<CustomResponse<bool>> ChangePaswordAsync(ChangePasswordDto changePasswordDto)
+        {
+            return await _httpService.PostAsync<bool>("auth/changePassword", changePasswordDto);
+        }
 
         public async Task Logout()
         {
             await _localStorage.RemoveItemAsync("token");
             await _authStateProvider.GetAuthenticationStateAsync();
         }
+
     }
 
     public interface IAuthService
     {
         Task<CustomResponse<UserDto>> LoginAsync(LoginDto loginDto);
         Task<CustomResponse<bool>> RegisterAsync(RegisterDto registerDto);
+        Task<CustomResponse<bool>> ChangePaswordAsync(ChangePasswordDto changePasswordDto);
+
         Task Logout();
     }
 }
