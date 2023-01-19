@@ -1,6 +1,7 @@
 ﻿@page "/AddressForm"
 @inject CladiriService CladiriService
 @inject ISnackbar Snackbar
+@using Newtonsoft.Json.Linq
 
 <MudText Style="font-size:x-large; font-weight:700; font-family:sans-serif;" Color="Color.Primary" Align="Align.Center">Adaugare adresa</MudText>
 
@@ -55,11 +56,41 @@
         </MudItem>
         <MudItem xs="12" sm="5">
             <MudPaper Class="pa-4 mud-height-full">
-                <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=25.50407409667969%2C44.207311626616956%2C26.650772094726566%2C44.65155875202518&amp;layer=mapnik&amp;marker=44.429857265397246%2C26.077423095703125"></iframe>
+                <div id="map" style="height: 600px;"></div>
             </MudPaper>
         </MudItem>
     </MudGrid>
 </EditForm>
+
+@code {
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+    private string address;
+
+    protected override void OnAfterRender(bool firstrender)
+    {
+        if (firstrender)
+        {
+            JSRuntime.InvokeAsync<bool>("initMap", DotNetObjectReference.Create(this));
+        }
+    }
+
+    [JSInvokable]
+    public void UpdateInput(String address)
+    {
+        var addressObj = JObject.Parse(address);
+        var strada = (string)addressObj["components"]["road"];
+        var numar = (string)addressObj["components"]["house_number"];
+
+        var tipStrada = strada.Split(" ")[0];
+        strada = strada[(strada.Split()[0].Length + 1)..];
+
+        model.Tip_Strada = tipStrada;
+        model.Denumire_Strada = strada;
+        model.Numar = numar;
+        StateHasChanged();
+    }
+}
 
 @code {
     CladireDto model = new();
