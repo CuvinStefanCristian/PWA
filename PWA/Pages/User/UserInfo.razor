@@ -1,5 +1,7 @@
-﻿@inject ILocalStorageService localStorageService
-@inject IAuthService auth
+@inject ILocalStorageService localStorageService
+
+@inject IAuthService AuthService
+
 @page "/UserInfo"
 @attribute [Authorize]
 <MudText Style="font-size:x-large; font-weight:700; font-family:'Segoe UI';" Color="Color.Primary" Align="Align.Center">User information</MudText>
@@ -28,12 +30,14 @@
 </AuthorizeView>
 <MudStack Row>
     <MudSpacer/>
-    <MudFab Class="my-8 rounded-pill" Color="Color.Primary" Label="Change password"></MudFab>
+    <MudFab Class="my-8 rounded-pill" Color="Color.Primary" Label="Change password" Href="/ChangePassword"></MudFab>
     <MudSpacer/>
 </MudStack>
 <MudStack Row>
     <MudSpacer />
-    <MudFab OnClick="@(async () => await auth.Logout())" Class="rounded-pill" Color="Color.Primary" Label="Logout"></MudFab>
+
+    <MudFab Class="rounded-pill" Color="Color.Primary" OnClick="@(async () => await AuthService.Logout())" Label="Logout"></MudFab>
+
     <MudSpacer />
 </MudStack>
 @code {
