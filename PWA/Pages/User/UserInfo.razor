@@ -1,4 +1,5 @@
 ﻿@inject ILocalStorageService localStorageService
+@inject IAuthService auth
 @page "/UserInfo"
 @attribute [Authorize]
 <MudText Style="font-size:x-large; font-weight:700; font-family:'Segoe UI';" Color="Color.Primary" Align="Align.Center">User information</MudText>
@@ -15,9 +16,9 @@
                         <MudMenuItem>@context.User.Identity.Name</MudMenuItem>
                         @if (user != null)
                         {
-                            <MudText>@user.LastName</MudText>
-                            <MudText>@user.FirstName</MudText>
-                            <MudText>@user.Phone</MudText>
+                            <MudText>Nume: @user.LastName</MudText>
+                            <MudText>Prenume: @user.FirstName</MudText>
+                            <MudText>Telfon: @user.Phone</MudText>
                         }
                     </CardHeaderContent>
                 </MudCardHeader>
@@ -32,7 +33,7 @@
 </MudStack>
 <MudStack Row>
     <MudSpacer />
-    <MudFab Class="rounded-pill" Color="Color.Primary" Label="Logout"></MudFab>
+    <MudFab OnClick="@(async () => await auth.Logout())" Class="rounded-pill" Color="Color.Primary" Label="Logout"></MudFab>
     <MudSpacer />
 </MudStack>
 @code {
@@ -41,6 +42,9 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            user = await localStorageService.GetItemAsync<UserDto>("token");
+        {
+		user = await localStorageService.GetItemAsync<UserDto>("token");
+	  	StateHasChanged();
+	  }
     }
 }
